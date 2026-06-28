@@ -1,0 +1,13 @@
+# Root configuration
+.env
+.env.*
+node_modules/
+dist/
+build/
+*.log
+
+# Editor & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

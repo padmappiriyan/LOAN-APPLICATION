@@ -1,0 +1,99 @@
+import { Routes, Route, Navigate } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
+import { getDashboardRouteForUser } from '../utils/routeUtils';
+
+import PublicRoute from '../components/PublicRoute';
+import RequireAuth from '../components/RequireAuth';
+
+// Auth Pages
+import LoginPage from '../features/auth/LoginPage';
+import ForceChangePwdPage from '../features/auth/ForceChangePwdPage';
+import ForgotPasswordPage from '../features/auth/ForgotPasswordPage';
+import ResetPasswordPage from '../features/auth/ResetPasswordPage';
+import UnauthorizedPage from '../features/auth/UnauthorizedPage';
+
+// Dashboards
+import AdminDashboard from '../features/dashboards/AdminDashboard';
+import GenericDashboard from '../features/dashboards/GenericDashboard';
+
+// Admin Pages
+import RoleListPage from '../features/admin/roles/RoleListPage';
+import CreateRolePage from '../features/admin/roles/CreateRolePage';
+import UserListPage from '../features/admin/users/UserListPage';
+import CreateUserPage from '../features/admin/users/CreateUserPage';
+
+const AppRouter = () => {
+  const { user, isAuthenticated, isLoading } = useAuth();
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="w-12 h-12 border-4 border-brand-600 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  // Root redirect logic based on permissions
+  const getRootRedirect = () => {
+    if (!isAuthenticated) return '/login';
+    if (user?.mustChangePassword) return '/change-password';
+    return getDashboardRouteForUser(user);
+  };
+
+  return (
+    <Routes>
+      {/* Root Redirect */}
+      <Route path="/" element={<Navigate to={getRootRedirect()} replace />} />
+
+      {/* Public Routes (Only accessible if NOT logged in) */}
+      <Route element={<PublicRoute />}>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+      </Route>
+
+      {/* Semi-Private Route (Logged in, but must change password) */}
+      <Route path="/change-password" element={
+        isAuthenticated && user?.mustChangePassword ? 
+        <ForceChangePwdPage /> : 
+        <Navigate to={getRootRedirect()} replace />
+      } />
+
+      {/* Fully Private Routes (Must be logged in & password changed) */}
+      <Route element={<RequireAuth />}>
+        {/* Dashboards */}
+        <Route path="/dashboard" element={<GenericDashboard title="Staff Dashboard" />} />
+        <Route path="/dashboard/manager" element={<GenericDashboard title="Manager Dashboard" />} />
+        <Route path="/dashboard/officer" element={<GenericDashboard title="Field Officer Dashboard" />} />
+        <Route path="/dashboard/accountant" element={<GenericDashboard title="Accountant Dashboard" />} />
+        
+        {/* Super Admin specific routes */}
+        <Route path="/dashboard/admin" element={<AdminDashboard />} />
+      </Route>
+
+      {/* Role Management (Requires 'role:read' / 'role:create' permissions) */}
+      <Route element={<RequireAuth requiredPermission="role:read" />}>
+        <Route path="/admin/roles" element={<RoleListPage />} />
+      </Route>
+      <Route element={<RequireAuth requiredPermission="role:create" />}>
+        <Route path="/admin/roles/create" element={<CreateRolePage />} />
+      </Route>
+
+      {/* User Management (Requires 'user:read' / 'user:create' permissions) */}
+      <Route element={<RequireAuth requiredPermission="user:read" />}>
+        <Route path="/admin/users" element={<UserListPage />} />
+      </Route>
+      <Route element={<RequireAuth requiredPermission="user:create" />}>
+        <Route path="/admin/users/create" element={<CreateUserPage />} />
+      </Route>
+
+      {/* Unauthorized */}
+      <Route path="/unauthorized" element={<UnauthorizedPage />} />
+
+      {/* 404 Catch-all */}
+      <Route path="*" element={<Navigate to={getRootRedirect()} replace />} />
+    </Routes>
+  );
+};
+
+export default AppRouter;
