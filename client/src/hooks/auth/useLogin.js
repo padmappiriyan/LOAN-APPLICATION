@@ -2,7 +2,6 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../api/axiosInstance';
 import useAuth from '../useAuth';
-import { getDashboardRouteForUser } from '../../utils/routeUtils';
 
 const useLogin = () => {
   const navigate = useNavigate();
@@ -18,8 +17,7 @@ const useLogin = () => {
       if (data.user.mustChangePassword) {
         navigate('/change-password', { replace: true });
       } else {
-        const dest = getDashboardRouteForUser(data.user);
-        navigate(dest, { replace: true });
+        navigate('/dashboard', { replace: true });
       }
     },
   });

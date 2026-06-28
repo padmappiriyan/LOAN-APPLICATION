@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-import { getDashboardRouteForUser } from '../utils/routeUtils';
 
 import PublicRoute from '../components/PublicRoute';
 import RequireAuth from '../components/RequireAuth';
@@ -13,8 +12,7 @@ import ResetPasswordPage from '../features/auth/ResetPasswordPage';
 import UnauthorizedPage from '../features/auth/UnauthorizedPage';
 
 // Dashboards
-import AdminDashboard from '../features/dashboards/AdminDashboard';
-import GenericDashboard from '../features/dashboards/GenericDashboard';
+import Dashboard from '../features/dashboards/Dashboard';
 
 // Admin Pages
 import RoleListPage from '../features/admin/roles/RoleListPage';
@@ -37,7 +35,7 @@ const AppRouter = () => {
   const getRootRedirect = () => {
     if (!isAuthenticated) return '/login';
     if (user?.mustChangePassword) return '/change-password';
-    return getDashboardRouteForUser(user);
+    return '/dashboard';
   };
 
   return (
@@ -61,14 +59,8 @@ const AppRouter = () => {
 
       {/* Fully Private Routes (Must be logged in & password changed) */}
       <Route element={<RequireAuth />}>
-        {/* Dashboards */}
-        <Route path="/dashboard" element={<GenericDashboard title="Staff Dashboard" />} />
-        <Route path="/dashboard/manager" element={<GenericDashboard title="Manager Dashboard" />} />
-        <Route path="/dashboard/officer" element={<GenericDashboard title="Field Officer Dashboard" />} />
-        <Route path="/dashboard/accountant" element={<GenericDashboard title="Accountant Dashboard" />} />
-        
-        {/* Super Admin specific routes */}
-        <Route path="/dashboard/admin" element={<AdminDashboard />} />
+        {/* Unified Dashboard */}
+        <Route path="/dashboard" element={<Dashboard />} />
       </Route>
 
       {/* Role Management (Requires 'role:read' / 'role:create' permissions) */}

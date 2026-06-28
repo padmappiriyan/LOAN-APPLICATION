@@ -1,18 +1,31 @@
 import useAuth from './useAuth';
 
 /**
- * Check if the current user has a specific permission.
- * @param {string} permission - Permission key e.g. 'loan:create'
- * @returns {boolean}
+ * Custom hook to check if the current user has specific permissions.
  *
  * Usage:
- *   const canCreate = usePermission('loan:create');
- *   if (!canCreate) return null;
+ *   const { can, hasAny, hasAll } = usePermission();
+ *   {can('loan:create') && <button>Create</button>}
  */
-const usePermission = (permission) => {
+const usePermission = () => {
   const { user } = useAuth();
-  if (!user || !Array.isArray(user.permissions)) return false;
-  return user.permissions.includes(permission);
+
+  const can = (permission) => {
+    if (!user || !Array.isArray(user.permissions)) return false;
+    return user.permissions.includes(permission);
+  };
+
+  const hasAny = (permissionsArray) => {
+    if (!user || !Array.isArray(user.permissions)) return false;
+    return permissionsArray.some((p) => user.permissions.includes(p));
+  };
+
+  const hasAll = (permissionsArray) => {
+    if (!user || !Array.isArray(user.permissions)) return false;
+    return permissionsArray.every((p) => user.permissions.includes(p));
+  };
+
+  return { can, hasAny, hasAll };
 };
 
 export default usePermission;
