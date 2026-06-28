@@ -62,11 +62,11 @@ const Dashboard = () => {
                   <h2 className="text-xl font-bold text-gray-900 mb-2">Staff Management</h2>
                   <p className="text-gray-500 mb-6 flex-1 text-sm">Provision new accounts, reset passwords, and manage employee access.</p>
                   <div className="space-y-3">
-                    <Link to="/admin/users" className="block w-full py-2.5 px-4 bg-gray-50 hover:bg-gray-100 text-gray-700 font-medium rounded-lg text-center transition-colors">
+                    <Link to="/users" className="block w-full py-2.5 px-4 bg-gray-50 hover:bg-gray-100 text-gray-700 font-medium rounded-lg text-center transition-colors">
                       View All Staff
                     </Link>
                     {can('user:create') && (
-                      <Link to="/admin/users/create" className="block w-full py-2.5 px-4 bg-brand-50 hover:bg-brand-100 text-brand-700 font-medium rounded-lg text-center transition-colors">
+                      <Link to="/users/create" className="block w-full py-2.5 px-4 bg-brand-50 hover:bg-brand-100 text-brand-700 font-medium rounded-lg text-center transition-colors">
                         + Provision New User
                       </Link>
                     )}
@@ -82,11 +82,11 @@ const Dashboard = () => {
                   <h2 className="text-xl font-bold text-gray-900 mb-2">Role & Permissions</h2>
                   <p className="text-gray-500 mb-6 flex-1 text-sm">Configure granular access control roles exactly what each staff can do.</p>
                   <div className="space-y-3">
-                    <Link to="/admin/roles" className="block w-full py-2.5 px-4 bg-gray-50 hover:bg-gray-100 text-gray-700 font-medium rounded-lg text-center transition-colors">
+                    <Link to="/roles" className="block w-full py-2.5 px-4 bg-gray-50 hover:bg-gray-100 text-gray-700 font-medium rounded-lg text-center transition-colors">
                       Manage Roles
                     </Link>
                     {can('role:create') && (
-                      <Link to="/admin/roles/create" className="block w-full py-2.5 px-4 bg-purple-50 hover:bg-purple-100 text-purple-700 font-medium rounded-lg text-center transition-colors">
+                      <Link to="/roles/create" className="block w-full py-2.5 px-4 bg-purple-50 hover:bg-purple-100 text-purple-700 font-medium rounded-lg text-center transition-colors">
                         + Create Custom Role
                       </Link>
                     )}

@@ -12,13 +12,13 @@ import ResetPasswordPage from '../features/auth/ResetPasswordPage';
 import UnauthorizedPage from '../features/auth/UnauthorizedPage';
 
 // Dashboards
-import Dashboard from '../features/dashboards/Dashboard';
+import Dashboard from '../features/dashboard/Dashboard';
 
 // Admin Pages
-import RoleListPage from '../features/admin/roles/RoleListPage';
-import CreateRolePage from '../features/admin/roles/CreateRolePage';
-import UserListPage from '../features/admin/users/UserListPage';
-import CreateUserPage from '../features/admin/users/CreateUserPage';
+import RoleListPage from '../features/roles/RoleListPage';
+import CreateRolePage from '../features/roles/CreateRolePage';
+import UserListPage from '../features/users/UserListPage';
+import CreateUserPage from '../features/users/CreateUserPage';
 
 const AppRouter = () => {
   const { user, isAuthenticated, isLoading } = useAuth();
@@ -65,18 +65,18 @@ const AppRouter = () => {
 
       {/* Role Management (Requires 'role:read' / 'role:create' permissions) */}
       <Route element={<RequireAuth requiredPermission="role:read" />}>
-        <Route path="/admin/roles" element={<RoleListPage />} />
+        <Route path="/roles" element={<RoleListPage />} />
       </Route>
       <Route element={<RequireAuth requiredPermission="role:create" />}>
-        <Route path="/admin/roles/create" element={<CreateRolePage />} />
+        <Route path="/roles/create" element={<CreateRolePage />} />
       </Route>
 
       {/* User Management (Requires 'user:read' / 'user:create' permissions) */}
       <Route element={<RequireAuth requiredPermission="user:read" />}>
-        <Route path="/admin/users" element={<UserListPage />} />
+        <Route path="/users" element={<UserListPage />} />
       </Route>
       <Route element={<RequireAuth requiredPermission="user:create" />}>
-        <Route path="/admin/users/create" element={<CreateUserPage />} />
+        <Route path="/users/create" element={<CreateUserPage />} />
       </Route>
 
       {/* Unauthorized */}
