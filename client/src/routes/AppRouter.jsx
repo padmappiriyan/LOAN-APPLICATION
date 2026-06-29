@@ -17,6 +17,7 @@ import Dashboard from '../features/dashboard/Dashboard';
 // Admin Pages
 import RoleListPage from '../features/roles/RoleListPage';
 import CreateRolePage from '../features/roles/CreateRolePage';
+import EditRolePage from '../features/roles/EditRolePage';
 import UserListPage from '../features/users/UserListPage';
 import CreateUserPage from '../features/users/CreateUserPage';
 
@@ -69,6 +70,9 @@ const AppRouter = () => {
       </Route>
       <Route element={<RequireAuth requiredPermission="role:create" />}>
         <Route path="/roles/create" element={<CreateRolePage />} />
+      </Route>
+      <Route element={<RequireAuth requiredPermission="role:update" />}>
+        <Route path="/roles/edit/:id" element={<EditRolePage />} />
       </Route>
 
       {/* User Management (Requires 'user:read' / 'user:create' permissions) */}
