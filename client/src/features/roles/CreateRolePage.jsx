@@ -29,7 +29,14 @@ const CreateRolePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createRole({ name, description, permissions: Array.from(selectedPerms) });
+    createRole(
+      { name, description, permissions: Array.from(selectedPerms) },
+      {
+        onSuccess: () => {
+          navigate('/roles');
+        }
+      }
+    );
   };
 
   const errorMessage = error?.response?.data?.message;
@@ -38,8 +45,8 @@ const CreateRolePage = () => {
     <div className="p-8 max-w-5xl mx-auto animate-fade-in">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Create Custom Role</h1>
-          <p className="text-gray-500 mt-1">Define a new role and configure its system access level.</p>
+          <h1 className="text-2xl font-bold text-brand-600">Create Custom Role</h1>
+          <p className="text-gray-500  text-[13px] mt-1">Define a new role and configure its system access level.</p>
         </div>
         <Link to="/roles" className="btn-secondary">Cancel</Link>
       </div>
