@@ -79,8 +79,8 @@ const CreateRolePage = () => {
               const someSelected = group.permissions.some((p) => selectedPerms.has(p.key)) && !allSelected;
 
               return (
-                <div key={group.group} className="border border-zinc-200 rounded-xl overflow-hidden bg-white shadow-sm">
-                  <div className="bg-white p-4 border-b border-zinc-100 flex items-center justify-between">
+                <div key={group.group} className="border border-zinc-200/50 rounded-xl overflow-hidden bg-[#f8f8f8] shadow-sm">
+                  <div className="bg-[#f8f8f8] p-4 border-b border-zinc-200/50 flex items-center justify-between">
                     <h3 className="font-semibold text-gray-800 text-sm">{group.group}</h3>
                     <button type="button" onClick={() => handleSelectGroup(group.permissions, !allSelected)}
                       className="text-xs font-medium text-brand-600 hover:text-brand-800">
