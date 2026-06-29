@@ -17,7 +17,7 @@ const RoleCard = ({
       <div>
         <div className="flex justify-between items-start">
           <div className="pr-4">
-            <h2 className="text-xl font-medium text-blue-500 tracking-tight leading-tight mb-1 group-hover:text-brand-600 transition-colors">
+            <h2 className="text-[18px]  text-blue-500  leading-tight mb-1 group-hover:text-brand-600 transition-colors">
               {role.name}
             </h2>
             <span className="text-xs text-zinc-400 font-semibold block">
