@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import useCreateRole from '../../../hooks/roles/useCreateRole';
-import { PERMISSION_GROUPS } from '../../../config/permissions';
+import useCreateRole from '../../hooks/roles/useCreateRole';
+import { PERMISSION_GROUPS } from '../../config/permissions';
 
 const CreateRolePage = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const CreateRolePage = () => {
           <h1 className="text-2xl font-bold text-gray-900">Create Custom Role</h1>
           <p className="text-gray-500 mt-1">Define a new role and configure its system access level.</p>
         </div>
-        <Link to="/admin/roles" className="btn-secondary">Cancel</Link>
+        <Link to="/roles" className="btn-secondary">Cancel</Link>
       </div>
 
       {errorMessage && (
@@ -79,8 +79,8 @@ const CreateRolePage = () => {
               const someSelected = group.permissions.some((p) => selectedPerms.has(p.key)) && !allSelected;
 
               return (
-                <div key={group.group} className="border border-gray-200 rounded-xl overflow-hidden">
-                  <div className="bg-gray-50 p-4 border-b border-gray-200 flex items-center justify-between">
+                <div key={group.group} className="border border-zinc-200 rounded-xl overflow-hidden bg-white shadow-sm">
+                  <div className="bg-white p-4 border-b border-zinc-100 flex items-center justify-between">
                     <h3 className="font-semibold text-gray-800 text-sm">{group.group}</h3>
                     <button type="button" onClick={() => handleSelectGroup(group.permissions, !allSelected)}
                       className="text-xs font-medium text-brand-600 hover:text-brand-800">

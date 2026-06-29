@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import useGetUsers from '../../../hooks/users/useGetUsers';
-import useToggleUserStatus from '../../../hooks/users/useToggleUserStatus';
-import usePermission from '../../../hooks/usePermission';
-import useAuth from '../../../hooks/useAuth';
+import useGetUsers from '../../hooks/users/useGetUsers';
+import useToggleUserStatus from '../../hooks/users/useToggleUserStatus';
+import usePermission from '../../hooks/usePermission';
+import useAuth from '../../hooks/useAuth';
 
 const UserListPage = () => {
   const { data: users = [], isLoading } = useGetUsers();
@@ -22,7 +22,7 @@ const UserListPage = () => {
           <p className="text-gray-500 mt-1">Manage system access for all employees.</p>
         </div>
         {canCreate && (
-          <Link to="/admin/users/create" className="btn-primary">
+          <Link to="/users/create" className="btn-primary">
             + Provision New User
           </Link>
         )}

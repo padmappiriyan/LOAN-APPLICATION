@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import useCreateUser from '../../../hooks/users/useCreateUser';
-import useGetRoles from '../../../hooks/roles/useGetRoles';
+import useCreateUser from '../../hooks/users/useCreateUser';
+import useGetRoles from '../../hooks/roles/useGetRoles';
 
 const CreateUserPage = () => {
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const CreateUserPage = () => {
             </div>
           </div>
           <div className="flex gap-4 justify-center">
-            <Link to="/admin/users" className="btn-secondary">Back to User List</Link>
+            <Link to="/users" className="btn-secondary">Back to User List</Link>
             <button onClick={() => window.location.reload()} className="btn-primary">Create Another User</button>
           </div>
         </div>
@@ -69,7 +69,7 @@ const CreateUserPage = () => {
           <h1 className="text-2xl font-bold text-gray-900">Create Staff User</h1>
           <p className="text-gray-500 mt-1">Provision a new staff account and assign a role.</p>
         </div>
-        <Link to="/admin/users" className="btn-secondary">Cancel</Link>
+        <Link to="/users" className="btn-secondary">Cancel</Link>
       </div>
 
       <div className="card">

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import useGetRoles from '../../../hooks/roles/useGetRoles';
-import usePermission from '../../../hooks/usePermission';
+import useGetRoles from '../../hooks/roles/useGetRoles';
+import usePermission from '../../hooks/usePermission';
 
 const RoleListPage = () => {
   const { data: roles = [], isLoading } = useGetRoles();
@@ -16,7 +16,7 @@ const RoleListPage = () => {
           <p className="text-gray-500 mt-1">Configure system roles and access permissions.</p>
         </div>
         {canCreate && (
-          <Link to="/admin/roles/create" className="btn-primary">
+          <Link to="/roles/create" className="btn-primary">
             + Create Custom Role
           </Link>
         )}

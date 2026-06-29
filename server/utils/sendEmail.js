@@ -26,10 +26,10 @@ const sendEmail = async ({ to, subject, html, text }) => {
       html,
       text,
     });
-    console.log(`✉️  Email sent to ${to}: ${info.messageId}`);
+    console.log(`Email sent to ${to}: ${info.messageId}`);
     return info;
   } catch (error) {
-    console.error('❌ Email send failed:', error.message);
+    console.error(' Email send failed:', error.message);
     throw new Error('Failed to send email. Please try again later.');
   }
 };

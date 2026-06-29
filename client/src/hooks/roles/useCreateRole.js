@@ -13,7 +13,7 @@ const useCreateRole = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['roles'] });
-      navigate('/admin/roles');
+      navigate('/roles');
     },
   });
 };
