@@ -33,8 +33,14 @@ const RequireAuth = ({ requiredPermission }) => {
     return <Navigate to="/change-password" replace />;
   }
 
-  if (requiredPermission && !user?.permissions?.includes(requiredPermission)) {
-    return <Navigate to="/unauthorized" replace />;
+  if (requiredPermission) {
+    const hasPermission = Array.isArray(requiredPermission)
+      ? requiredPermission.some(perm => user?.permissions?.includes(perm))
+      : user?.permissions?.includes(requiredPermission);
+
+    if (!hasPermission) {
+      return <Navigate to="/unauthorized" replace />;
+    }
   }
 
   return <Outlet />;
