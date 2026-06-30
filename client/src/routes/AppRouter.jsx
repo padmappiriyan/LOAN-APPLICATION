@@ -21,6 +21,10 @@ import EditRolePage from '../features/roles/EditRolePage';
 import UserListPage from '../features/users/UserListPage';
 import CreateUserPage from '../features/users/CreateUserPage';
 
+// Customer Pages
+import CustomerListPage from '../features/customers/CustomerListPage';
+import CreateCustomerPage from '../features/customers/CreateCustomerPage';
+
 const AppRouter = () => {
   const { user, isAuthenticated, isLoading } = useAuth();
 
@@ -81,6 +85,14 @@ const AppRouter = () => {
       </Route>
       <Route element={<RequireAuth requiredPermission="user:create" />}>
         <Route path="/users/create" element={<CreateUserPage />} />
+      </Route>
+
+      {/* Customer Management */}
+      <Route element={<RequireAuth requiredPermission={['customer:read_all', 'customer:read_own']} />}>
+        <Route path="/customers" element={<CustomerListPage />} />
+      </Route>
+      <Route element={<RequireAuth requiredPermission="customer:create" />}>
+        <Route path="/customers/create" element={<CreateCustomerPage />} />
       </Route>
 
       {/* Unauthorized */}
