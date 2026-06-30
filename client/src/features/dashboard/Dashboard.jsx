@@ -2,7 +2,7 @@ import useAuth from '../../hooks/useAuth';
 import useLogout from '../../hooks/auth/useLogout';
 import usePermission from '../../hooks/usePermission';
 import { Link } from 'react-router-dom';
-import { Landmark, Users, Shield, Settings, TrendingUp } from 'lucide-react';
+import { Landmark, Users, Shield, Settings, TrendingUp, UserCheck, Briefcase } from 'lucide-react';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -10,6 +10,7 @@ const Dashboard = () => {
   const { mutate: logout, isPending } = useLogout();
 
   const showAdminPanel = hasAny(['user:read', 'role:read', 'system:settings']);
+  const showCustomerPanel = hasAny(['customer:read_all', 'customer:read_own', 'customer:create']);
   const showLoanPanel = hasAny(['loan:read_all', 'loan:read_own', 'loan:create']);
 
   return (
@@ -95,62 +96,112 @@ const Dashboard = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {can('user:read') && (
-                <div className="bg-white border border-zinc-200/80 rounded-2xl p-6 flex flex-col h-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group">
-                  <div className="icon-brand-container group-hover:bg-brand-600 group-hover:text-white group-hover:border-transparent">
-                    <Users size={24} />
-                  </div>
-                  <h2 className="text-xl font-bold text-zinc-950 mb-2 group-hover:text-brand-600 transition-colors">Staff Management</h2>
-                  <p className="text-zinc-500 mb-6 flex-1 text-sm leading-relaxed">
-                    Provision new accounts, reset passwords, and manage employee access levels.
-                  </p>
-                  <div className="space-y-3">
-                    <Link to="/users" className="btn-brand-secondary">
-                      View All Staff
-                    </Link>
-                    {can('user:create') && (
-                      <Link to="/users/create" className="btn-brand-primary">
-                        + Provision New User
+                <div className="bg-zinc-100/80 p-2 rounded-[32px] border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 group">
+                  <div className="bg-white border border-zinc-200 rounded-[24px] p-6 flex flex-col h-full relative overflow-hidden">
+                    <div className="icon-brand-container group-hover:bg-brand-600 group-hover:text-white group-hover:border-transparent relative z-10">
+                      <Users size={24} />
+                    </div>
+                    <h2 className="text-xl font-bold text-zinc-950 mb-2 mt-2 group-hover:text-brand-600 transition-colors relative z-10">Staff Management</h2>
+                    <p className="text-zinc-500 mb-6 flex-1 text-sm leading-relaxed relative z-10">
+                      Provision new accounts, reset passwords, and manage employee access levels.
+                    </p>
+                    <div className="space-y-3 relative z-10">
+                      <Link to="/users" className="btn-brand-secondary">
+                        View All Staff
                       </Link>
-                    )}
+                      {can('user:create') && (
+                        <Link to="/users/create" className="btn-brand-primary">
+                          + Provision New User
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
 
               {can('role:read') && (
-                <div className="bg-white border border-zinc-200/80 rounded-2xl p-6 flex flex-col h-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 group">
-                  <div className="icon-brand-container group-hover:bg-brand-600 group-hover:text-white group-hover:border-transparent">
-                    <Shield size={24} />
-                  </div>
-                  <h2 className="text-xl font-bold text-zinc-950 mb-2 group-hover:text-brand-600 transition-colors">Role & Permissions</h2>
-                  <p className="text-zinc-500 mb-6 flex-1 text-sm leading-relaxed">
-                    Configure granular access control roles. Control exactly what each staff member can do.
-                  </p>
-                  <div className="space-y-3">
-                    <Link to="/roles" className="btn-brand-secondary">
-                      Manage Roles
-                    </Link>
-                    {can('role:create') && (
-                      <Link to="/roles/create" className="btn-brand-primary">
-                        + Create Custom Role
+                <div className="bg-zinc-100/80 p-2 rounded-[32px] border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 group">
+                  <div className="bg-white border border-zinc-200 rounded-[24px] p-6 flex flex-col h-full relative overflow-hidden">
+                    <div className="icon-brand-container group-hover:bg-brand-600 group-hover:text-white group-hover:border-transparent relative z-10">
+                      <Shield size={24} />
+                    </div>
+                    <h2 className="text-xl font-bold text-zinc-950 mb-2 mt-2 group-hover:text-brand-600 transition-colors relative z-10">Role & Permissions</h2>
+                    <p className="text-zinc-500 mb-6 flex-1 text-sm leading-relaxed relative z-10">
+                      Configure granular access control roles. Control exactly what each staff member can do.
+                    </p>
+                    <div className="space-y-3 relative z-10">
+                      <Link to="/roles" className="btn-brand-secondary">
+                        Manage Roles
                       </Link>
-                    )}
+                      {can('role:create') && (
+                        <Link to="/roles/create" className="btn-brand-primary">
+                          + Create Custom Role
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
               
               {can('system:settings') && (
-                <div className="bg-zinc-100/50 border border-zinc-200 rounded-2xl p-6 flex flex-col h-full opacity-60">
-                  <div className="w-12 h-12 bg-zinc-200 text-zinc-400 rounded-xl flex items-center justify-center mb-4 border border-zinc-300/50">
-                    <Settings size={24} />
+                <div className="bg-zinc-100/80 p-2 rounded-[32px] border border-zinc-200/70 opacity-70 group shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
+                  <div className="bg-zinc-50 border border-zinc-200 rounded-[24px] p-6 flex flex-col h-full">
+                    <div className="w-12 h-12 bg-zinc-200/60 text-zinc-400 rounded-xl flex items-center justify-center mb-4 border border-zinc-300/30">
+                      <Settings size={24} />
+                    </div>
+                    <h2 className="text-xl font-bold text-zinc-400 mb-2 mt-2">System Settings</h2>
+                    <p className="text-zinc-400 mb-6 flex-1 text-sm leading-relaxed">
+                      Configure branch details, email templates, and global parameters. (Coming soon)
+                    </p>
+                    <div className="space-y-3 mt-auto">
+                      <button disabled className="block w-full py-2.5 px-4 bg-zinc-200/30 text-zinc-400 font-semibold rounded-xl text-center border border-zinc-300/20 cursor-not-allowed">
+                        Go to Settings
+                      </button>
+                    </div>
                   </div>
-                  <h2 className="text-xl font-bold text-zinc-400 mb-2">System Settings</h2>
-                  <p className="text-zinc-400 mb-6 flex-1 text-sm leading-relaxed">
-                    Configure branch details, email templates, and global parameters. (Coming soon)
-                  </p>
-                  <div className="space-y-3 mt-auto">
-                    <button disabled className="block w-full py-2.5 px-4 bg-zinc-200/50 text-zinc-400 font-semibold rounded-xl text-center border border-zinc-300/30 cursor-not-allowed">
-                      Go to Settings
-                    </button>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {showCustomerPanel && (
+          <section className="space-y-6 pt-6">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-brand-50 border border-brand-100 shadow-sm rounded-lg">
+                <Briefcase size={20} className="text-brand-600" />
+              </div>
+              <div>
+                <h1 className="text-3xl font-extrabold text-zinc-950 tracking-tight">
+                  Client Operations
+                </h1>
+                <p className="text-zinc-500 mt-1 text-sm sm:text-base">
+                  Manage borrower profiles and loan workflows.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {hasAny(['customer:read_all', 'customer:read_own']) && (
+                <div className="bg-zinc-100/80 p-2 rounded-[32px] border border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 group">
+                  <div className="bg-white border border-zinc-200 rounded-[24px] p-6 flex flex-col h-full relative overflow-hidden">
+                    <div className="icon-brand-container group-hover:bg-brand-600 group-hover:text-white group-hover:border-transparent relative z-10">
+                      <UserCheck size={24} />
+                    </div>
+                    <h2 className="text-xl font-bold text-zinc-950 mb-2 mt-2 group-hover:text-brand-600 transition-colors relative z-10">Customer Profiles</h2>
+                    <p className="text-zinc-500 mb-6 flex-1 text-sm leading-relaxed relative z-10">
+                      View borrower histories, update contact details, and manage KYC records.
+                    </p>
+                    <div className="space-y-3 mt-auto relative z-10">
+                      <Link to="/customers" className="btn-brand-secondary">
+                        View Customers
+                      </Link>
+                      {can('customer:create') && (
+                        <Link to="/customers/create" className="btn-brand-primary">
+                          + Register New Customer
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
@@ -159,7 +210,7 @@ const Dashboard = () => {
         )}
 
         {/* Generic user welcome if they have no admin tools */}
-        {!showAdminPanel && !showLoanPanel && (
+        {!showAdminPanel && !showCustomerPanel && !showLoanPanel && (
           <section className="text-center py-20 bg-white border border-zinc-200 rounded-3xl p-8 max-w-2xl mx-auto shadow-sm relative overflow-hidden">
             <div className="w-20 h-20 bg-brand-50 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-brand-500/10">
               <Landmark size={32} className="text-brand-600" />
