@@ -9,6 +9,11 @@ export const PERMISSIONS = {
   USER_UPDATE:    'user:update',
   USER_DISABLE:   'user:disable',
 
+  CUSTOMER_CREATE:   'customer:create',
+  CUSTOMER_READ_ALL: 'customer:read_all',
+  CUSTOMER_READ_OWN: 'customer:read_own',
+  CUSTOMER_UPDATE:   'customer:update',
+
   ROLE_CREATE:    'role:create',
   ROLE_READ:      'role:read',
   ROLE_UPDATE:    'role:update',
@@ -38,6 +43,7 @@ export const PERMISSIONS = {
   SALARY_READ:    'salary:read',
   SALARY_WRITE:   'salary:write',
   BONUS_WRITE:    'bonus:write',
+  BONUS_READ_OWN: 'bonus:read_own',
 
   AUDIT_LOG_READ:  'audit:read',
   SYSTEM_SETTINGS: 'system:settings',
@@ -53,6 +59,15 @@ export const PERMISSION_GROUPS = [
       { key: 'user:read',    label: 'View Users' },
       { key: 'user:update',  label: 'Edit Users' },
       { key: 'user:disable', label: 'Disable / Enable Users' },
+    ],
+  },
+  {
+    group: 'Customer Management',
+    permissions: [
+      { key: 'customer:create',   label: 'Create Customers' },
+      { key: 'customer:read_all', label: 'View All Customers' },
+      { key: 'customer:read_own', label: 'View Own Customers' },
+      { key: 'customer:update',   label: 'Edit Customers' },
     ],
   },
   {
@@ -107,6 +122,7 @@ export const PERMISSION_GROUPS = [
       { key: 'salary:read',  label: 'View Salaries' },
       { key: 'salary:write', label: 'Manage Salaries' },
       { key: 'bonus:write',  label: 'Manage Bonuses' },
+      { key: 'bonus:read_own', label: 'View Own Bonus' },
     ],
   },
   {
