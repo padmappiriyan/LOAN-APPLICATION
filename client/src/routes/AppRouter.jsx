@@ -11,6 +11,9 @@ import ForgotPasswordPage from '../features/auth/ForgotPasswordPage';
 import ResetPasswordPage from '../features/auth/ResetPasswordPage';
 import UnauthorizedPage from '../features/auth/UnauthorizedPage';
 
+// Landing Page
+import LandingPage from '../features/landing/LandingPage';
+
 // Dashboards
 import Dashboard from '../features/dashboard/Dashboard';
 
@@ -45,8 +48,8 @@ const AppRouter = () => {
 
   return (
     <Routes>
-      {/* Root Redirect */}
-      <Route path="/" element={<Navigate to={getRootRedirect()} replace />} />
+      {/* Public Landing Page */}
+      <Route path="/" element={<LandingPage />} />
 
       {/* Public Routes (Only accessible if NOT logged in) */}
       <Route element={<PublicRoute />}>
